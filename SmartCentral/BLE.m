@@ -8,9 +8,13 @@
 
 #import "BLE.h"
 
-#define RBL_SERVICE_UUID                         "713D0000-503E-4C75-BA94-3148F18D941E"
-#define RBL_CHAR_TX_UUID                         "713D0002-503E-4C75-BA94-3148F18D941E"
-#define RBL_CHAR_RX_UUID                         "713D0003-503E-4C75-BA94-3148F18D941E"
+//#define RBL_SERVICE_UUID                         "713D0000-503E-4C75-BA94-3148F18D941E"
+//#define RBL_CHAR_TX_UUID                         "713D0002-503E-4C75-BA94-3148F18D941E"
+//#define RBL_CHAR_RX_UUID                         "713D0003-503E-4C75-BA94-3148F18D941E"
+
+#define BLE_SERVICE_UUID @"BC2F4CC6-AAEF-4351-9034-D66268E328F0"
+#define BLE_CHAR_TX_UUID  @"06D1E5E7-79AD-4A71-8FAA-373789F7D93C"
+#define BLE_CHAR_RX_UUID  @"06D1E5E7-79AD-4A71-8FAA-373789F7D93C"
 
 
 @implementation BLE
@@ -35,24 +39,24 @@ static int rssi = 0;
 
 -(void) read
 {
-    CBUUID *uuid_service = [CBUUID UUIDWithString:@RBL_SERVICE_UUID];
-    CBUUID *uuid_char = [CBUUID UUIDWithString:@RBL_CHAR_TX_UUID];
+    CBUUID *uuid_service = [CBUUID UUIDWithString:BLE_SERVICE_UUID];
+    CBUUID *uuid_char = [CBUUID UUIDWithString:BLE_CHAR_TX_UUID];
     
     [self readValue:uuid_service characteristicUUID:uuid_char p:activePeripheral];
 }
 
 -(void) write:(NSData *)d
 {
-    CBUUID *uuid_service = [CBUUID UUIDWithString:@RBL_SERVICE_UUID];
-    CBUUID *uuid_char = [CBUUID UUIDWithString:@RBL_CHAR_RX_UUID];
+    CBUUID *uuid_service = [CBUUID UUIDWithString:BLE_SERVICE_UUID];
+    CBUUID *uuid_char = [CBUUID UUIDWithString:BLE_CHAR_RX_UUID];
     
     [self writeValue:uuid_service characteristicUUID:uuid_char p:activePeripheral data:d];
 }
 
 -(void) enableReadNotification:(CBPeripheral *)p
 {
-    CBUUID *uuid_service = [CBUUID UUIDWithString:@RBL_SERVICE_UUID];
-    CBUUID *uuid_char = [CBUUID UUIDWithString:@RBL_CHAR_TX_UUID];
+    CBUUID *uuid_service = [CBUUID UUIDWithString:BLE_SERVICE_UUID];
+    CBUUID *uuid_char = [CBUUID UUIDWithString:BLE_CHAR_TX_UUID];
     
     [self notification:uuid_service characteristicUUID:uuid_char p:p on:YES];
 }
@@ -159,7 +163,9 @@ static int rssi = 0;
     
     [p writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
 }
-
+- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+    [[self delegate] bleResponse:characteristic error:error];
+}
 -(UInt16) swap:(UInt16)s
 {
     UInt16 temp = s << 8;
@@ -186,7 +192,7 @@ static int rssi = 0;
     [NSTimer scheduledTimerWithTimeInterval:(float)timeout target:self selector:@selector(scanTimer:) userInfo:nil repeats:NO];
     
 #if TARGET_OS_IPHONE
-    [self.CM scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:@RBL_SERVICE_UUID]] options:nil];
+    [self.CM scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:BLE_SERVICE_UUID]] options:nil];
 #else
     [self.CM scanForPeripheralsWithServices:nil options:nil]; // Start scanning
 #endif
@@ -524,7 +530,7 @@ static int rssi = 0;
     
     if (!error)
     {
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@RBL_CHAR_TX_UUID]])
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BLE_CHAR_TX_UUID]])
         {
             data_len = characteristic.value.length;
             [characteristic.value getBytes:data length:data_len];

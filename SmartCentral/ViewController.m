@@ -51,7 +51,9 @@
     [NSTimer scheduledTimerWithTimeInterval:(float)3.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
     
 }
-
+-(void) bleResponse:(CBCharacteristic *)characteristic error:(NSError *)error{
+    NSLog(@"bleResponse::%@",error);
+}
 -(void) bleDidReceiveData:(unsigned char *)data length:(int)length
 {
     

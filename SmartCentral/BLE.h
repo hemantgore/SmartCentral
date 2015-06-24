@@ -15,6 +15,7 @@
 -(void) bleDidDisconnect;
 -(void) bleDidUpdateRSSI:(NSNumber *) rssi;
 -(void) bleDidReceiveData:(unsigned char *) data length:(int) length;
+-(void) bleResponse:(CBCharacteristic *)characteristic error:(NSError *)error;
 @required
 @end
 
