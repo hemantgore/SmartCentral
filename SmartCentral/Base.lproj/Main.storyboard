@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F1077" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -35,6 +35,9 @@
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x8K-Fy-vrz">
                                 <rect key="frame" x="208" y="81" width="51" height="31"/>
+                                <connections>
+                                    <action selector="setLED:" destination="vXZ-lx-hvc" eventType="valueChanged" id="Eu5-zg-bTx"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set LED " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9b-IV-Bs5">
                                 <rect key="frame" x="64" y="86" width="68" height="21"/>
@@ -42,13 +45,24 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cu4-Wy-DFk">
+                                <rect key="frame" x="99" y="129" width="122" height="30"/>
+                                <state key="normal" title="Set Cycling Mode">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="setCyclingMode:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="lG4-8m-9g3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="suz-QM-mzY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="116" id="DMc-GP-P69"/>
+                            <constraint firstItem="Cu4-Wy-DFk" firstAttribute="top" secondItem="j9b-IV-Bs5" secondAttribute="bottom" constant="22" id="HLe-N3-0Ff"/>
                             <constraint firstItem="j9b-IV-Bs5" firstAttribute="top" secondItem="JeK-m4-wC6" secondAttribute="bottom" constant="19" id="Jbu-K0-Xkb"/>
                             <constraint firstItem="JeK-m4-wC6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="108" id="QMj-EN-oPy"/>
                             <constraint firstItem="suz-QM-mzY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-5" id="VBU-G2-GEn"/>
+                            <constraint firstItem="Cu4-Wy-DFk" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="83" id="XRO-Uc-PP2"/>
                             <constraint firstItem="JeK-m4-wC6" firstAttribute="top" secondItem="suz-QM-mzY" secondAttribute="bottom" constant="1" id="cpb-Lu-lAD"/>
                             <constraint firstItem="j9b-IV-Bs5" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="48" id="czA-sb-ATX"/>
                             <constraint firstItem="x8K-Fy-vrz" firstAttribute="centerY" secondItem="j9b-IV-Bs5" secondAttribute="centerY" id="pFI-4e-k7r"/>
@@ -56,6 +70,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cyclingModeBtn" destination="kh9-bI-dsS" id="l2B-CA-8fw"/>
                         <outlet property="scanBtn" destination="JeK-m4-wC6" id="66f-le-Ljo"/>
                     </connections>
                 </viewController>

@@ -10,6 +10,7 @@
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *scanBtn;
+@property (strong, nonatomic) IBOutlet UIView *cyclingModeBtn;
 
 @end
 
@@ -118,5 +119,55 @@ NSTimer *rssiTimer;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(int) decimalIntoHex:(char) number
+{
+    char ge  =number/10*16;
+    char shi =number%10;
+    int total =ge +shi;
+    return total;
+}
+- (IBAction)setCyclingMode:(id)sender{
+    
+    uint8_t send[] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+    /*
+     4.3.1 System Message Format
+     MSGID|MSGTYP|NODEID|VCSID|CMDTYP||CMD||CMDPKT|PRI|TIMSTMP
+     */
+    //    uint8_t send[20];
+    send[0]=[self decimalIntoHex:1];
+    send[1]=0xB0;//MSG Type-0xB0:Sys, 0xB1:HW,0xB2:info, 0xB3:ACT
+    send[2]=0x00;//5 bit, used for H/w msg type: 0xFD
+    send[3]=0xC3;
+    send[4]=0xA0;//CMD type, 0xA0:SET, 0xA1:GET, 0xA2:ACT
+    send[5]=0xA0;//CMD,e,g: SetSysMod:0xEC
+    send[6]=0x01; // 0x01:Cycling
+    send[7]=0x01;//Priority: (0x01)in HEX==1 in Decimal
+    send[8]=[self decimalIntoHex:[[NSDate date] timeIntervalSince1970]];// Get Sencond in since, convert ot HEX
+    NSData *data = [[NSData alloc] initWithBytes:send length:9];
+    if (bleShield.activePeripheral.state == CBPeripheralStateConnected) {
+        [bleShield write:data];
+    }
+}
+- (IBAction)setLED:(UISwitch*)sender{
+    
+    uint8_t send[] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+    /*
+     4.3.1 System Message Format
+     MSGID|MSGTYP|NODEID|VCSID|CMDTYP||CMD||CMDPKT|PRI|TIMSTMP
+     */
+    //    uint8_t send[20];
+    send[0]=[self decimalIntoHex:1];
+    send[1]=0xB0;//MSG Type-0xB0:Sys, 0xB1:HW,0xB2:info, 0xB3:ACT
+    send[2]=0x00;//5 bit, used for H/w msg type: 0xFD
+    send[3]=0xC3;
+    send[4]=0xA0;//CMD type, 0xA0:SET, 0xA1:GET, 0xA2:ACT
+    send[5]=0xA0;//CMD,e,g: SetSysMod:0xEC
+    send[6]=0x01; // 0x01:Cycling
+    send[7]=0x01;//Priority: (0x01)in HEX==1 in Decimal
+    send[8]=[self decimalIntoHex:[[NSDate date] timeIntervalSince1970]];// Get Sencond in since, convert ot HEX
+    NSData *data = [[NSData alloc] initWithBytes:send length:9];
+    if (bleShield.activePeripheral.state == CBPeripheralStateConnected) {
+        [bleShield write:data];
+    }
+}
 @end
