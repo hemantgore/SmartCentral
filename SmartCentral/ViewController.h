@@ -2,14 +2,17 @@
 //  ViewController.h
 //  SmartCentral
 //
-//  Created by Sandeep on 24/06/15.
+//  Created on 24/06/15.
 //  Copyright (c) 2015 H. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "BLE.h"
 
-@interface ViewController : UIViewController
-
+@interface ViewController : UIViewController<BLEDelegate>
+{
+    BLE *bleShield;
+}
 
 @end
 

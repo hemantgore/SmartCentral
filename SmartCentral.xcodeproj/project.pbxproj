@@ -14,6 +14,11 @@
 		2C2B225B1B39E97C006CEE7F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B225A1B39E97C006CEE7F /* Images.xcassets */; };
 		2C2B225E1B39E97C006CEE7F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B225C1B39E97C006CEE7F /* LaunchScreen.xib */; };
 		2C2B226A1B39E97C006CEE7F /* SmartCentralTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B22691B39E97C006CEE7F /* SmartCentralTests.m */; };
+		2C2B22741B39E9C8006CEE7F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2B22731B39E9C8006CEE7F /* UIKit.framework */; };
+		2C2B22761B39E9D1006CEE7F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2B22751B39E9D1006CEE7F /* CoreGraphics.framework */; };
+		2C2B22781B39E9D7006CEE7F /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2B22771B39E9D7006CEE7F /* CoreBluetooth.framework */; };
+		2C2B227A1B39E9E5006CEE7F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2B22791B39E9E5006CEE7F /* Foundation.framework */; };
+		2C2B227F1B39EB6E006CEE7F /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B227E1B39EB6E006CEE7F /* BLE.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +45,12 @@
 		2C2B22631B39E97C006CEE7F /* SmartCentralTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartCentralTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2B22681B39E97C006CEE7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C2B22691B39E97C006CEE7F /* SmartCentralTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartCentralTests.m; sourceTree = "<group>"; };
+		2C2B22731B39E9C8006CEE7F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2C2B22751B39E9D1006CEE7F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2C2B22771B39E9D7006CEE7F /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		2C2B22791B39E9E5006CEE7F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2C2B227D1B39EB6E006CEE7F /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
+		2C2B227E1B39EB6E006CEE7F /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +58,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C2B227A1B39E9E5006CEE7F /* Foundation.framework in Frameworks */,
+				2C2B22781B39E9D7006CEE7F /* CoreBluetooth.framework in Frameworks */,
+				2C2B22761B39E9D1006CEE7F /* CoreGraphics.framework in Frameworks */,
+				2C2B22741B39E9C8006CEE7F /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				2C2B224C1B39E97C006CEE7F /* SmartCentral */,
+				2C2B227B1B39E9EB006CEE7F /* Framework */,
 				2C2B22661B39E97C006CEE7F /* SmartCentralTests */,
 				2C2B224B1B39E97C006CEE7F /* Products */,
 			);
@@ -81,6 +97,7 @@
 		2C2B224C1B39E97C006CEE7F /* SmartCentral */ = {
 			isa = PBXGroup;
 			children = (
+				2C2B227C1B39EB3D006CEE7F /* BLEManager */,
 				2C2B22511B39E97C006CEE7F /* AppDelegate.h */,
 				2C2B22521B39E97C006CEE7F /* AppDelegate.m */,
 				2C2B22541B39E97C006CEE7F /* ViewController.h */,
@@ -117,6 +134,26 @@
 				2C2B22681B39E97C006CEE7F /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2C2B227B1B39E9EB006CEE7F /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				2C2B22731B39E9C8006CEE7F /* UIKit.framework */,
+				2C2B22751B39E9D1006CEE7F /* CoreGraphics.framework */,
+				2C2B22771B39E9D7006CEE7F /* CoreBluetooth.framework */,
+				2C2B22791B39E9E5006CEE7F /* Foundation.framework */,
+			);
+			name = Framework;
+			sourceTree = "<group>";
+		};
+		2C2B227C1B39EB3D006CEE7F /* BLEManager */ = {
+			isa = PBXGroup;
+			children = (
+				2C2B227D1B39EB6E006CEE7F /* BLE.h */,
+				2C2B227E1B39EB6E006CEE7F /* BLE.m */,
+			);
+			name = BLEManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +259,7 @@
 				2C2B22561B39E97C006CEE7F /* ViewController.m in Sources */,
 				2C2B22531B39E97C006CEE7F /* AppDelegate.m in Sources */,
 				2C2B22501B39E97C006CEE7F /* main.m in Sources */,
+				2C2B227F1B39EB6E006CEE7F /* BLE.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,9 +337,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "a2472bde-01c8-4167-8888-1abeef0acf74";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -336,8 +375,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "a2472bde-01c8-4167-8888-1abeef0acf74";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -347,6 +387,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = SmartCentral/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -357,6 +398,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = SmartCentral/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -2,7 +2,7 @@
 //  SmartCentralTests.m
 //  SmartCentralTests
 //
-//  Created by Sandeep on 24/06/15.
+//  Created on 24/06/15.
 //  Copyright (c) 2015 H. All rights reserved.
 //
 
