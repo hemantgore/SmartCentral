@@ -12,6 +12,7 @@
 @interface ViewController : UIViewController<BLEDelegate>
 {
     BLE *bleShield;
+    NSMutableString *str;
 }
 
 @end

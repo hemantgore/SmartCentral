@@ -42,26 +42,46 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iua-f2-cxv">
+                                <rect key="frame" x="0.0" y="184" width="320" height="364"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sent Command:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moh-Lq-NEH">
+                                <rect key="frame" x="16" y="163" width="125" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="suz-QM-mzY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="110" id="08x-9Y-PwG"/>
                             <constraint firstItem="JeK-m4-wC6" firstAttribute="top" secondItem="suz-QM-mzY" secondAttribute="bottom" constant="34" id="D8M-V1-n5n"/>
+                            <constraint firstItem="Iua-f2-cxv" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="ENh-B1-3fW"/>
                             <constraint firstItem="suz-QM-mzY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="HI3-Cr-KcE"/>
                             <constraint firstItem="Cu4-Wy-DFk" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="83" id="Qft-2H-RzM"/>
+                            <constraint firstItem="moh-Lq-NEH" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="WNs-qT-Zlb"/>
                             <constraint firstAttribute="centerY" secondItem="Cu4-Wy-DFk" secondAttribute="centerY" constant="136" id="Xsb-y9-pdg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Iua-f2-cxv" secondAttribute="trailing" constant="-16" id="gZe-7p-FMx"/>
                             <constraint firstItem="Cu4-Wy-DFk" firstAttribute="top" secondItem="JeK-m4-wC6" secondAttribute="bottom" constant="20" id="hN2-7V-4F7"/>
+                            <constraint firstItem="Iua-f2-cxv" firstAttribute="top" secondItem="moh-Lq-NEH" secondAttribute="bottom" id="rPO-6u-lmx"/>
                             <constraint firstItem="JeK-m4-wC6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="109" id="umI-Q3-axM"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Iua-f2-cxv" secondAttribute="bottom" constant="20" id="vAo-yT-guG"/>
+                            <constraint firstItem="moh-Lq-NEH" firstAttribute="top" secondItem="Cu4-Wy-DFk" secondAttribute="bottom" id="wFG-g9-9jD"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cyclingModeBtn" destination="kh9-bI-dsS" id="l2B-CA-8fw"/>
+                        <outlet property="degubInfoTextView" destination="Iua-f2-cxv" id="zrz-aV-yn1"/>
                         <outlet property="scanBtn" destination="JeK-m4-wC6" id="66f-le-Ljo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="130.66666666666666" y="294.41333333333336"/>
+            <point key="canvasLocation" x="130" y="294"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

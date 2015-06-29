@@ -11,6 +11,7 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *scanBtn;
 @property (strong, nonatomic) IBOutlet UIView *cyclingModeBtn;
+@property (weak, nonatomic) IBOutlet UITextView *degubInfoTextView;
 
 @end
 
@@ -19,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.degubInfoTextView.text=@"";
     bleShield = [[BLE alloc] init];
     [bleShield controlSetup];
     bleShield.delegate = self;
@@ -148,6 +150,21 @@ NSTimer *rssiTimer;
     NSData *data = [[NSData alloc] initWithBytes:send length:9];
     if (bleShield.activePeripheral.state == CBPeripheralStateConnected) {
         [bleShield write:data];
+        NSMutableString *temp = [[NSMutableString alloc] init];
+        for (int i = 0; i < 9; i++) {
+            
+            NSString *strTmp = [NSString stringWithFormat:@"%x",send[i]];
+            if([strTmp length]<2)
+                [temp appendFormat:@" 0x0%x ", send[i]];
+            else
+                [temp appendFormat:@" 0x%x ", send[i]];
+        }
+        if (str == nil) {
+            str = [NSMutableString stringWithFormat:@"%@\n", temp];
+        } else {
+            [str appendFormat:@"%@\n", temp];
+        }
+        self.degubInfoTextView.text =str;
     }
 }
 - (IBAction)setLED:(UISwitch*)sender{
