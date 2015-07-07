@@ -27,6 +27,17 @@
 static bool isConnected = false;
 static int rssi = 0;
 
++ (instancetype)sharedManager {
+    static BLE *_sharedMrg = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedMrg = [[self alloc]init];
+    });
+    
+    return _sharedMrg;
+}
+
+
 -(void) readRSSI
 {
     [activePeripheral readRSSI];
@@ -175,7 +186,8 @@ static int rssi = 0;
 
 - (void) controlSetup
 {
-    self.CM = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+    if(!self.CM)
+        self.CM = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
 }
 
 - (int) findBLEPeripherals:(int) timeout
@@ -192,7 +204,8 @@ static int rssi = 0;
     [NSTimer scheduledTimerWithTimeInterval:(float)timeout target:self selector:@selector(scanTimer:) userInfo:nil repeats:NO];
     
 #if TARGET_OS_IPHONE
-    [self.CM scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:BLE_SERVICE_UUID]] options:nil];
+//    [self.CM scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:BLE_SERVICE_UUID]] options:nil];
+    [self.CM scanForPeripheralsWithServices:nil options:nil];
 #else
     [self.CM scanForPeripheralsWithServices:nil options:nil]; // Start scanning
 #endif
@@ -299,7 +312,7 @@ static int rssi = 0;
     for (int i=0; i < p.services.count; i++)
     {
         CBService *s = [p.services objectAtIndex:i];
-        //        printf("Fetching characteristics for service with UUID : %s\r\n",[self CBUUIDToString:s.UUID]);
+        printf("Fetching characteristics for service with UUID : %s \r\n",[self CBUUIDToString:s.UUID]);
         [p discoverCharacteristics:nil forService:s];
     }
 }
@@ -449,6 +462,8 @@ static int rssi = 0;
     }
     
     NSLog(@"didDiscoverPeripheral");
+    
+    [self.delegate bleDidDiscovered];
 }
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
@@ -470,8 +485,8 @@ static int rssi = 0;
         
         for (int i=0; i < service.characteristics.count; i++)
         {
-            //            CBCharacteristic *c = [service.characteristics objectAtIndex:i];
-            //            printf("Found characteristic %s\n",[ self CBUUIDToString:c.UUID]);
+            CBCharacteristic *c = [service.characteristics objectAtIndex:i];
+            printf("Found characteristic %s \n",[self CBUUIDToString:c.UUID]);
             CBService *s = [peripheral.services objectAtIndex:(peripheral.services.count - 1)];
             
             if ([service.UUID isEqual:s.UUID])
@@ -507,7 +522,7 @@ static int rssi = 0;
 {
     if (!error)
     {
-        //        printf("Updated notification state for characteristic with UUID %s on service with  UUID %s on peripheral with UUID %s\r\n",[self CBUUIDToString:characteristic.UUID],[self CBUUIDToString:characteristic.service.UUID],[self UUIDToString:peripheral.UUID]);
+//                printf("Updated notification state for characteristic with UUID %s on service with  UUID %lld on peripheral with UUID %@ \r\n",[self CBUUIDToString:characteristic.UUID],[self CBUUIDToString:characteristic.service.UUID],peripheral.identifier.UUIDString);
     }
     else
     {

@@ -7,12 +7,12 @@
 //
 
 #import "ViewController.h"
-
+#import "DetailViewController.h"
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *scanBtn;
 @property (strong, nonatomic) IBOutlet UIView *cyclingModeBtn;
 @property (weak, nonatomic) IBOutlet UITextView *degubInfoTextView;
-
+@property (weak, nonatomic) IBOutlet UITableView *deviceTable;
 @end
 
 @implementation ViewController
@@ -21,7 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.degubInfoTextView.text=@"";
-    bleShield = [[BLE alloc] init];
+    bleShield = [BLE sharedManager];
     [bleShield controlSetup];
     bleShield.delegate = self;
 }
@@ -29,7 +29,7 @@
 {
     if(bleShield.peripherals.count > 0)
     {
-        [bleShield connectPeripheral:[bleShield.peripherals objectAtIndex:0]];
+//        [bleShield connectPeripheral:[bleShield.peripherals objectAtIndex:0]];
     }
     else
     {
@@ -51,6 +51,12 @@
     [bleShield findBLEPeripherals:3];
     
     [NSTimer scheduledTimerWithTimeInterval:(float)3.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
+    
+}
+#pragma mark - BLE Manager Delegates -
+-(void) bleDidDiscovered
+{
+    [self.deviceTable reloadData];
     
 }
 -(void) bleResponse:(CBCharacteristic *)characteristic error:(NSError *)error{
@@ -104,10 +110,12 @@ NSTimer *rssiTimer;
 - (void) bleDidDisconnect
 {
     NSLog(@"bleDidDisconnect");
-    [self.scanBtn setTitle:@"Connect" forState:UIControlStateNormal];
+    [self.scanBtn setTitle:@"Scan" forState:UIControlStateNormal];
     
     
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+    
+    [self.deviceTable reloadData];
 }
 
 -(void) bleDidConnect
@@ -116,6 +124,7 @@ NSTimer *rssiTimer;
 
     
     NSLog(@"bleDidConnect");
+//    [bleShield getAllServicesFromPeripheral:bleShield.activePeripheral];
 }
 
 - (void)didReceiveMemoryWarning
@@ -187,6 +196,44 @@ NSTimer *rssiTimer;
     NSData *data = [[NSData alloc] initWithBytes:send length:9];
     if (bleShield.activePeripheral.state == CBPeripheralStateConnected) {
         [bleShield write:data];
+    }
+}
+#pragma mark - UITableViewDelegate and UITableViewDataSource methods
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+    
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+//    BLECentralManager *centralManager = [BLECentralManager sharedService];
+//    return [centralManager.ymsPeripherals count];
+    return [bleShield.peripherals count];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 80.0;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"peripheralCell";
+    UITableViewCell *pcell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    CBPeripheral *p =[bleShield.peripherals objectAtIndex:indexPath.row];
+    pcell.textLabel.text = p.name;
+    pcell.detailTextLabel.text = [NSString stringWithFormat:@"%@",p.identifier.UUIDString];
+    return pcell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+//    [bleShield connectPeripheral:[bleShield.peripherals objectAtIndex:indexPath.row]];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+//    [bleShield getAllServicesFromPeripheral:[bleShield.peripherals objectAtIndex:indexPath.row]];
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"DetailViewController"])
+    {
+        NSIndexPath *indexPath = [self.deviceTable indexPathForSelectedRow];
+        
+        DetailViewController *destViewController = segue.destinationViewController;
+        destViewController.selectedPeripheral = [bleShield.peripherals objectAtIndex:indexPath.row];
     }
 }
 @end

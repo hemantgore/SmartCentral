@@ -11,6 +11,7 @@
 
 @protocol BLEDelegate
 @optional
+-(void) bleDidDiscovered;
 -(void) bleDidConnect;
 -(void) bleDidDisconnect;
 -(void) bleDidUpdateRSSI:(NSNumber *) rssi;
@@ -29,6 +30,7 @@
 @property (strong, nonatomic) CBCentralManager *CM;
 @property (strong, nonatomic) CBPeripheral *activePeripheral;
 
++ (instancetype)sharedManager;
 -(void) enableReadNotification:(CBPeripheral *)p;
 -(void) read;
 -(void) writeValue:(CBUUID *)serviceUUID characteristicUUID:(CBUUID *)characteristicUUID p:(CBPeripheral *)p data:(NSData *)data;

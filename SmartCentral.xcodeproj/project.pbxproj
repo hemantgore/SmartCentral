@@ -19,6 +19,7 @@
 		2C2B22781B39E9D7006CEE7F /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2B22771B39E9D7006CEE7F /* CoreBluetooth.framework */; };
 		2C2B227A1B39E9E5006CEE7F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2B22791B39E9E5006CEE7F /* Foundation.framework */; };
 		2C2B227F1B39EB6E006CEE7F /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B227E1B39EB6E006CEE7F /* BLE.m */; };
+		2CE92FD81B4C4E810059DAC7 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE92FD71B4C4E810059DAC7 /* DetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		2C2B22791B39E9E5006CEE7F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C2B227D1B39EB6E006CEE7F /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		2C2B227E1B39EB6E006CEE7F /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
+		2CE92FD61B4C4E810059DAC7 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		2CE92FD71B4C4E810059DAC7 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +105,8 @@
 				2C2B22521B39E97C006CEE7F /* AppDelegate.m */,
 				2C2B22541B39E97C006CEE7F /* ViewController.h */,
 				2C2B22551B39E97C006CEE7F /* ViewController.m */,
+				2CE92FD61B4C4E810059DAC7 /* DetailViewController.h */,
+				2CE92FD71B4C4E810059DAC7 /* DetailViewController.m */,
 				2C2B22571B39E97C006CEE7F /* Main.storyboard */,
 				2C2B225A1B39E97C006CEE7F /* Images.xcassets */,
 				2C2B225C1B39E97C006CEE7F /* LaunchScreen.xib */,
@@ -256,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CE92FD81B4C4E810059DAC7 /* DetailViewController.m in Sources */,
 				2C2B22561B39E97C006CEE7F /* ViewController.m in Sources */,
 				2C2B22531B39E97C006CEE7F /* AppDelegate.m in Sources */,
 				2C2B22501B39E97C006CEE7F /* main.m in Sources */,
@@ -458,6 +464,7 @@
 				2C2B226F1B39E97C006CEE7F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2C2B22701B39E97C006CEE7F /* Build configuration list for PBXNativeTarget "SmartCentralTests" */ = {
 			isa = XCConfigurationList;
@@ -466,6 +473,7 @@
 				2C2B22721B39E97C006CEE7F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

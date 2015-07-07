@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BLE.h"
 
-@interface ViewController : UIViewController<BLEDelegate>
+@interface ViewController : UIViewController<BLEDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     BLE *bleShield;
     NSMutableString *str;
