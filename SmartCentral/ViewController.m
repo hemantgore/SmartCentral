@@ -122,7 +122,9 @@ NSTimer *rssiTimer;
 {
     [self.scanBtn setTitle:@"Disconnect" forState:UIControlStateNormal];
 
-    
+    DetailViewController *detailsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
+    detailsVC.selectedPeripheral = bleShield.activePeripheral;
+    [self presentViewController:detailsVC animated:YES completion:nil];
     NSLog(@"bleDidConnect");
 //    [bleShield getAllServicesFromPeripheral:bleShield.activePeripheral];
 }
@@ -223,7 +225,7 @@ NSTimer *rssiTimer;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    [bleShield connectPeripheral:[bleShield.peripherals objectAtIndex:indexPath.row]];
+    [bleShield connectPeripheral:[bleShield.peripherals objectAtIndex:indexPath.row]];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 //    [bleShield getAllServicesFromPeripheral:[bleShield.peripherals objectAtIndex:indexPath.row]];
 }

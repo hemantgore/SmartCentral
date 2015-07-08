@@ -20,9 +20,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     bleShield = [BLE sharedManager];
-    [bleShield controlSetup];
-    bleShield.delegate = self;
-    [bleShield connectPeripheral:self.selectedPeripheral];
+//    [bleShield controlSetup];
+//    bleShield.delegate = self;
+//    [bleShield connectPeripheral:self.selectedPeripheral];
     
 }
 #pragma mark - BLE Delegates -
@@ -54,7 +54,8 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.selectedPeripheral.services count];
+    return (tableView==self.servicesListTable)?
+    [self.selectedPeripheral.services count]:0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50.0;
@@ -63,14 +64,22 @@
     UITableViewCell *pcell = nil;
     if(tableView==self.servicesListTable)
     {
-    static NSString *cellIdentifier = @"ServiceCell";
-    pcell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    CBService *s = [selectedPeripheral.services objectAtIndex:indexPath.row];
-//    CBPeripheral *p =[bleShield.peripherals objectAtIndex:indexPath.row];
-    pcell.textLabel.text = [NSString stringWithFormat:@"%@",s.UUID];
-    pcell.detailTextLabel.text = @"";//[NSString stringWithFormat:@"%@",p.identifier.UUIDString];
-    
-    }
+        pcell = [tableView dequeueReusableCellWithIdentifier:@"ServiceCell"];
+        if (pcell == nil) {
+            pcell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ServiceCell"];
+        }
+        CBService *s = [selectedPeripheral.services objectAtIndex:indexPath.row];
+        //    CBPeripheral *p =[bleShield.peripherals objectAtIndex:indexPath.row];
+        pcell.textLabel.text = [NSString stringWithFormat:@"%@",s.UUID];
+        
+        NSMutableString *chrStr = [[NSMutableString alloc]init];
+        for (CBCharacteristic *c in s.characteristics) {
+            [chrStr appendFormat:@"%@ \n",c.UUID];
+        }
+        NSLog(@"chrStr::%@",chrStr);
+        pcell.detailTextLabel.text = chrStr;//[NSString stringWithFormat:@"%@",p.identifier.UUIDString];
+        
+    }    
     return pcell;
 }
 -(IBAction)closeView:(id)sender

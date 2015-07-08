@@ -474,7 +474,13 @@ static int rssi = 0;
         NSLog(@"Connected to NULL successful");
     
     self.activePeripheral = peripheral;
+    
     [self.activePeripheral discoverServices:nil];
+    
+    [[self delegate] bleDidConnect];
+    isConnected = true;
+    
+    
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
@@ -482,22 +488,22 @@ static int rssi = 0;
     if (!error)
     {
         //        printf("Characteristics of service with UUID : %s found\n",[self CBUUIDToString:service.UUID]);
-        
-        for (int i=0; i < service.characteristics.count; i++)
-        {
-            CBCharacteristic *c = [service.characteristics objectAtIndex:i];
-            printf("Found characteristic %s \n",[self CBUUIDToString:c.UUID]);
-            CBService *s = [peripheral.services objectAtIndex:(peripheral.services.count - 1)];
-            
-            if ([service.UUID isEqual:s.UUID])
-            {
-                [self enableReadNotification:activePeripheral];
-                [[self delegate] bleDidConnect];
-                isConnected = true;
-                
-                break;
-            }
-        }
+
+//        for (int i=0; i < service.characteristics.count; i++)
+//        {
+//            CBCharacteristic *c = [service.characteristics objectAtIndex:i];
+//            printf("Found characteristic %s \n",[self CBUUIDToString:c.UUID]);
+//            CBService *s = [peripheral.services objectAtIndex:(peripheral.services.count - 1)];
+//            
+//            if ([service.UUID isEqual:s.UUID])
+//            {
+//                [self enableReadNotification:activePeripheral];
+//                
+//                [[self delegate] bleDidConnect];
+//                isConnected = true;
+//                break;
+//            }
+//        }
     }
     else
     {
