@@ -489,21 +489,21 @@ static int rssi = 0;
     {
         //        printf("Characteristics of service with UUID : %s found\n",[self CBUUIDToString:service.UUID]);
 
-//        for (int i=0; i < service.characteristics.count; i++)
-//        {
-//            CBCharacteristic *c = [service.characteristics objectAtIndex:i];
-//            printf("Found characteristic %s \n",[self CBUUIDToString:c.UUID]);
-//            CBService *s = [peripheral.services objectAtIndex:(peripheral.services.count - 1)];
-//            
-//            if ([service.UUID isEqual:s.UUID])
-//            {
+        for (int i=0; i < service.characteristics.count; i++)
+        {
+            CBCharacteristic *c = [service.characteristics objectAtIndex:i];
+            printf("Found characteristic %s \n",[self CBUUIDToString:c.UUID]);
+            CBService *s = [peripheral.services objectAtIndex:(peripheral.services.count - 1)];
+            [[self delegate] bleDidDiscoverCharacteristic];
+            if ([service.UUID isEqual:s.UUID])
+            {
 //                [self enableReadNotification:activePeripheral];
-//                
+                
 //                [[self delegate] bleDidConnect];
 //                isConnected = true;
-//                break;
-//            }
-//        }
+                break;
+            }
+        }
     }
     else
     {

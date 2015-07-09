@@ -25,6 +25,11 @@
     [bleShield controlSetup];
     bleShield.delegate = self;
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    bleShield.delegate = self;
+}
 -(void) connectionTimer:(NSTimer *)timer
 {
     if(bleShield.peripherals.count > 0)
@@ -124,6 +129,7 @@ NSTimer *rssiTimer;
 
     DetailViewController *detailsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
     detailsVC.selectedPeripheral = bleShield.activePeripheral;
+    bleShield.delegate = detailsVC;
     [self presentViewController:detailsVC animated:YES completion:nil];
     NSLog(@"bleDidConnect");
 //    [bleShield getAllServicesFromPeripheral:bleShield.activePeripheral];
@@ -236,6 +242,10 @@ NSTimer *rssiTimer;
         
         DetailViewController *destViewController = segue.destinationViewController;
         destViewController.selectedPeripheral = [bleShield.peripherals objectAtIndex:indexPath.row];
+//        bleShield.delegate = destViewController;
     }
+}
+-(void) bleDidDiscoverCharacteristic{
+    NSLog(@"VC bleDidDiscoverCharacteristic");
 }
 @end
